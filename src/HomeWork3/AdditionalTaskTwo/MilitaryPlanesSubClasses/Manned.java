@@ -1,10 +1,16 @@
-package HomeWork3.AdditionalTaskTwo.MilitaryPlanes;
+package HomeWork3.AdditionalTaskTwo.MilitaryPlanesSubClasses;
 
-public class Manned {
+import HomeWork3.AdditionalTaskTwo.MilitaryPlanes;
+
+public class Manned extends MilitaryPlanes implements MannedPlanesActions {
     public String pilotName;
     public int pilotFlights;
 
-    public void catapult () {
+    public void catapult() {
         System.out.println("Let's jump");
+    }
+
+    public void coffeeToThePilot() {
+        System.out.println("here yours coffe");
     }
 }

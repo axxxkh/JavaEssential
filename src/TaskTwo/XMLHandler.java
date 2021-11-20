@@ -1,10 +1,9 @@
 package TaskTwo;
 
 public class XMLHandler extends AbstractHandler {
-    public String file;
 
     @Override
-    void open() {
+    void open(String docType) {
         System.out.println("XML file is open");
     }
 
@@ -16,5 +15,9 @@ public class XMLHandler extends AbstractHandler {
     @Override
     void save() {
         System.out.println("XML file is saved");
+    }
+
+    public XMLHandler(String docType) {
+        super(docType);
     }
 }

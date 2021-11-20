@@ -2,8 +2,8 @@ package TaskTwo;
 
 public class DOCHandler extends AbstractHandler {
     @Override
-    void open() {
-        System.out.println("DOC file is open");
+    void open(String docType) {
+        System.out.println("DOC file is open"+docType);
     }
 
     @Override
@@ -14,5 +14,9 @@ public class DOCHandler extends AbstractHandler {
     @Override
     void save() {
         System.out.println("DOC file is saved");
+    }
+
+    public DOCHandler(String docType) {
+        super(docType);
     }
 }

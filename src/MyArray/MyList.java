@@ -4,10 +4,6 @@ public class MyList implements MyArrayListImpl {
     private String[] array;
     private String[] tempArray;
 
-    //    private void tempArrayToMy (Object[] tempArray, Object[] array) {
-//        for
-//    }
-//+
     private void decrease() {
         tempArray = new String[array.length - 1];
     }
@@ -107,4 +103,3 @@ public class MyList implements MyArrayListImpl {
     public MyList() {
     }
 }
-

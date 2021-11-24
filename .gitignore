@@ -40,7 +40,7 @@
 /JavaEssential.iml
 # CMake
 cmake-build-*/
-
+JavaEssential.iml
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 

@@ -38,6 +38,7 @@
  *.iml
  *.ipr
 /JavaEssential.iml
+JavaEssential.iml
 # CMake
 cmake-build-*/
 

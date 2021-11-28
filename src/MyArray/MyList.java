@@ -142,11 +142,11 @@ public class MyList implements MyArrayListImpl {
     //which return some kind of the link. So  I override this and now sout(list) works.
     @Override
     public String toString() {
-        String string = new String();
+        StringBuilder string = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            string += array[i] + " ";
+            string.append(array[i]).append(" ");
         }
-        return string;
+        return string.toString();
     }
 
     public MyList() {

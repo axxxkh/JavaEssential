@@ -138,6 +138,17 @@ public class MyList implements MyArrayListImpl {
         }
     }
 
+    // As I understood my list inherits from Object, and its have method toString
+    //which return some kind of the link. So  I override this and now sout(list) works.
+    @Override
+    public String toString() {
+        String string = new String();
+        for (int i = 0; i < size; i++) {
+            string += array[i] + " ";
+        }
+        return string;
+    }
+
     public MyList() {
         array = new String[INITIAL_SIZE];
         size = 0;

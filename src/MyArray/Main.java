@@ -17,8 +17,8 @@ public class Main {
         list.remove(3);
         list.print();
 
-        System.out.println(list.indexOf("111"));
-
+        System.out.println(list.indexOf("22"));
+        System.out.println(list);
         list.clear();
         list.print();
     }

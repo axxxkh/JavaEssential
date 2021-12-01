@@ -2,27 +2,9 @@ package MyArray;
 
 public class MyList implements MyArrayListImpl {
     private String[] array;
-    private String[] tempArray;
     private int size;
     private final int INITIAL_SIZE = 10;
     private boolean addEmptyCell;
-
-    /* called by methods add or remove to check if the capacity of array enough to
-     store list data. if quantity of elements in list equals to array.length
-     its increase array to two of its actual size. in case when size of the list
-     is twice smaller than array, decrease array in two times*/
-    private void resize() {
-        if (size == array.length) {
-            tempArray = new String[(array.length) * 2];
-            System.arraycopy(array, 0, tempArray, 0, size);
-            array = tempArray;
-        } else if (size * 2 < array.length && array.length > 10) {
-            tempArray = new String[(array.length) / 2];
-            System.arraycopy(array, 0, tempArray, 0, size);
-        } else {
-            tempArray = new String[array.length];
-        }
-    }
 
     // check if the position in list range. returns true or false end print error
     private boolean checkPosition(int position) {
@@ -34,10 +16,17 @@ public class MyList implements MyArrayListImpl {
         }
     }
 
-    /*called by add or remove methods, takes int position to remove or add empty cell in
-    position, check flag addEmptyCell in case true add empty cell in position, in another case
-     remove list item at difined position*/
-    private void copy(int position) {
+    private void resize(int position) {
+        String[] tempArray;
+
+        if (size == array.length) {
+            tempArray = new String[(array.length) * 2];
+            System.arraycopy(array, 0, tempArray, 0, size);
+            array = tempArray;
+        } else {
+            tempArray = new String[array.length];
+        }
+
         if (addEmptyCell) {
             if (position == 0) {
                 System.arraycopy(array, 0, tempArray, 1, size);
@@ -64,16 +53,9 @@ public class MyList implements MyArrayListImpl {
     @Override
     public void add(String string, int position) {
         if (checkPosition(position)) {
-            resize();
-            if (position == size) {
-                array[size] = string;
-                size++;
-            } else {
-                addEmptyCell = true;
-                copy(position);
-                array[position] = string;
-                size++;
-            }
+            resize(position);
+            array[position] = string;
+            size++;
         }
     }
 
@@ -92,9 +74,8 @@ public class MyList implements MyArrayListImpl {
     @Override
     public void remove(int position) {
         if (checkPosition(position)) {
-            resize();
             addEmptyCell = false;
-            copy(position);
+            resize(position);
             size--;
         }
     }
@@ -121,7 +102,7 @@ public class MyList implements MyArrayListImpl {
     public int indexOf(String string) {
 
         for (int i = 0; i < size; i++) {
-            if (array[i].equals(string)) {
+            if (array[i] != null && array[i].equals(string)) {
                 return i;
             }
         }

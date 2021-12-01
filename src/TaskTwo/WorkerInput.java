@@ -1,5 +1,6 @@
 package TaskTwo;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.InputMismatchException;
@@ -10,11 +11,10 @@ class WorkerInput {
     public final boolean EMPLOYMENT_YEAR = true;
     public final boolean SERVICE_YEARS = false;
     public Scanner input = new Scanner(System.in);
-    Worker[] workersArray = new Worker[2];
+    public Worker[] workersArray = new Worker[2];
 
     private void checkEmploymentYear(int year) throws WrongYearException {
-        if ((year > Calendar.getInstance().get(Calendar.YEAR)) ||
-                year < COMPANY_FOUNDATION) {
+        if ((year > LocalDate.now().getYear() || year < COMPANY_FOUNDATION)) {
             throw new WrongYearException();
         }
     }
@@ -37,7 +37,7 @@ class WorkerInput {
                 input.nextLine();
             } catch (WrongYearException exception) {
                 System.out.printf("its not acceptable year of the employment. Enter year after company created (%d) and " +
-                        "not bigger than current year (%d)\n", COMPANY_FOUNDATION, Calendar.getInstance().get(Calendar.YEAR));
+                        "not bigger than current year (%d)\n", COMPANY_FOUNDATION, LocalDate.now().getYear());
             }
         } while (check);
         return employmentYear;
@@ -60,7 +60,7 @@ class WorkerInput {
         System.out.println("Enter length of service to check employees");
         int serviceYears = checkInputYear(SERVICE_YEARS);
         for (Worker workers : workersArray) {
-            if (Calendar.getInstance().get(Calendar.YEAR) - workers.employmentYear > serviceYears) {
+            if (LocalDate.now().getYear() - workers.employmentYear > serviceYears) {
                 System.out.println(workers);
             }
         }

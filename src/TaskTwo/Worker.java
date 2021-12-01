@@ -3,9 +3,9 @@ package TaskTwo;
 import java.util.Calendar;
 
 public class Worker {
-    String workerName;
-    String workerPosition;
-    int employmentYear;
+    public String workerName;
+    public String workerPosition;
+    public int employmentYear;
 
     @Override
     public String toString() {

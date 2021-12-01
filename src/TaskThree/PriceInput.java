@@ -4,8 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PriceInput {
-    Price[] priceArray = new Price[2];
-    Scanner input = new Scanner(System.in);
+   public Price[] priceArray = new Price[2];
+   private Scanner input = new Scanner(System.in);
 
     public double checkNumber() {
         do {

@@ -11,7 +11,7 @@ public class MyList implements MyArrayListImpl {
      store list data. if quantity of elements in list equals to array.length
      its increase array to two of its actual size. in case when size of the list
      is twice smaller than array, decrease array in two times*/
-    private void changeSize() {
+    private void resize() {
         if (size == array.length) {
             tempArray = new String[(array.length) * 2];
             System.arraycopy(array, 0, tempArray, 0, size);
@@ -25,7 +25,7 @@ public class MyList implements MyArrayListImpl {
     }
 
     // check if the position in list range. returns true or false end print error
-    private boolean check(int position) {
+    private boolean checkPosition(int position) {
         if (position >= 0 && position <= size) {
             return true;
         } else {
@@ -63,8 +63,8 @@ public class MyList implements MyArrayListImpl {
 
     @Override
     public void add(String string, int position) {
-        if (check(position)) {
-            changeSize();
+        if (checkPosition(position)) {
+            resize();
             if (position == size) {
                 array[size] = string;
                 size++;
@@ -86,15 +86,13 @@ public class MyList implements MyArrayListImpl {
     of string*/
     @Override
     public void remove(String string) {
-        if (indexOf(string) != -1) {
-            remove(indexOf(string));
-        }
+        remove(indexOf(string));
     }
 
     @Override
     public void remove(int position) {
-        if (check(position)) {
-            changeSize();
+        if (checkPosition(position)) {
+            resize();
             addEmptyCell = false;
             copy(position);
             size--;
@@ -110,7 +108,12 @@ public class MyList implements MyArrayListImpl {
 
     @Override
     public void set(String string, int position) {
-        array[position] = string;
+
+        if (checkPosition(position)) {
+            array[position] = string;
+        } else {
+            System.out.println("It’s not acceptable position");
+        }
     }
 
     //search for string, in case not found ewturns -1 and print error
@@ -128,8 +131,11 @@ public class MyList implements MyArrayListImpl {
 
     @Override
     public String get(int position) {
-        check(position);
-        return array[position];
+        if (checkPosition(position)) {
+            return array[position];
+        } else {
+            return null;
+        }
     }
 
     public void print() {

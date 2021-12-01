@@ -20,5 +20,4 @@ public interface MyArrayListImpl {
     int indexOf(String string);
 
     String get(int pos);
-
 }

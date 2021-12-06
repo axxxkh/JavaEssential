@@ -17,17 +17,6 @@ public class Animal implements Comparable<Animal> { // <Animal>{
         return this.breed + " " + this.weight + " " + this.speed + " " + this.price;
     }
 
-    // Сортируем по скорости/цене
-//    public int compareTo(Animal o) {              //    public int compareTo(Animal o) {
-//        int tmp = this.speed - o.speed; //    int tmp = this.speed - o.speed;
-//
-//        if (tmp == 0) {
-//            return this.price - o.price;
-//        } else {
-//            return tmp;
-//        }
-//    }
-
     @Override
     public int compareTo(Animal o) {
         if (this.speed - o.speed == 0) {
@@ -50,7 +39,4 @@ public class Animal implements Comparable<Animal> { // <Animal>{
             return 1;
         }
     }
-
-    // Сравнение 2-х строковых значений
-    // return this.breed.compareTo(((Animal)o).breed);
 }

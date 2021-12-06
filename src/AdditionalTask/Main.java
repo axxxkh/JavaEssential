@@ -10,7 +10,7 @@ public class Main {
 
         Animal[] c = {cat, bird, dog};
 
-        Arrays.sort(c);   // ClassCastException w/o Comparable
+        Arrays.sort(c);
 
         for (Animal tmp : c) {
             System.out.println(tmp);

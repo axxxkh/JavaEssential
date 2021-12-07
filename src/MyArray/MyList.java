@@ -1,9 +1,8 @@
 package MyArray;
 
-import java.util.Objects;
-
 public class MyList implements MyArrayListImpl {
     private String[] array;
+    private String[] tempArray;
     private int size;
     private final int INITIAL_SIZE = 10;
     private boolean addEmptyCell;
@@ -116,7 +115,7 @@ public class MyList implements MyArrayListImpl {
         }
     }
 
-    //search for string, in case not found returns -1 and print error
+    //search for string, in case not found ewturns -1 and print error
     @Override
     public int indexOf(String string) {
 

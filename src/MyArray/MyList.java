@@ -2,10 +2,8 @@ package MyArray;
 
 public class MyList implements MyArrayListImpl {
     private String[] array;
-    private String[] tempArray;
     private int size;
     private final int INITIAL_SIZE = 10;
-    private boolean addEmptyCell;
 
     // check if the position in list range. returns true or false end print error
     private boolean checkPosition(int position) {
@@ -19,44 +17,12 @@ public class MyList implements MyArrayListImpl {
 
     //може я сильно багато логіки обєднав в одному, але тут суть така
     //метод ресайз приймає позицію від методу add(String, int),
-    private void resize(int position) {
-        String[] tempArray;
-        // в цьому блоці перевіряється чи необхідно збільшувати розмір, в залежності
-        // від довжини внутрішнього масиву і змінної сайз. в разі коли масив
-        // не потрібно збільшувати ініціалізується тим часовий стандартного розміру
-        // для виконання наступного блоку методу. Так як в мене цей метод викликається
-        // або add або remove. йому передається позиція елемента який видалити
-        // або додати
+    private void resize() {
         if (size == array.length) {
-            tempArray = new String[(array.length) * 2];
+            String[] tempArray = new String[(array.length) * 2];
             System.arraycopy(array, 0, tempArray, 0, size);
             array = tempArray;
-        } else {
-            tempArray = new String[array.length];
         }
-
-        // в разі якщо addEmptyCell true, масив копіюється у тимчасовий
-        // із додаванням порожньої ячейки за вказаною позицією
-        // в іншому проводиться операція по видаленню ячейки і відповідним зсувом
-        // тому після цього методу я можу в методі add відразу присвоїти значення
-        // за вказаною позицією. метод checkPosition викликається перед цим
-        // мабуть накрутив, але якось так логічний ланцюжок в мене склався(
-        if (addEmptyCell) {
-            if (position == 0) {
-                System.arraycopy(array, 0, tempArray, 1, size);
-            } else {
-                System.arraycopy(array, 0, tempArray, 0, position);
-                System.arraycopy(array, position, tempArray, position + 1, size - position);
-            }
-        } else {
-            if (position == 0) {
-                System.arraycopy(array, 1, tempArray, 0, size - 1);
-            } else {
-                System.arraycopy(array, 0, tempArray, 0, position);
-                System.arraycopy(array, position + 1, tempArray, position, size - position);
-            }
-        }
-        array = tempArray;
     }
 
     @Override
@@ -67,9 +33,16 @@ public class MyList implements MyArrayListImpl {
     @Override
     public void add(String string, int position) {
         if (checkPosition(position)) {
-            resize(position);
+            String[] tempArray = new String[array.length];
+            if (position == 0) {
+                System.arraycopy(array, 0, tempArray, 1, size);
+            } else {
+                System.arraycopy(array, 0, tempArray, 0, position);
+                System.arraycopy(array, position, tempArray, position + 1, size - position);
+            }
             array[position] = string;
             size++;
+            resize();
         }
     }
 
@@ -85,15 +58,16 @@ public class MyList implements MyArrayListImpl {
         remove(indexOf(string));
     }
 
-    //фактично в мене ресайз не просто робить таблицю в 2 рази більше, після
-    //її наповнення, а ще в залежності від значення addEmptyCell
-    //видаляє вказану ячейку і зссуває наступні, або навпаки добавляє у
-    // вказане місце. саме тому в метод передається position
     @Override
     public void remove(int position) {
         if (checkPosition(position)) {
-            addEmptyCell = false;
-            resize(position);
+            String[] tempArray = new String[array.length];
+            if (position == 0) {
+                System.arraycopy(array, 1, tempArray, 0, size - 1);
+            } else {
+                System.arraycopy(array, 0, tempArray, 0, position);
+                System.arraycopy(array, position + 1, tempArray, position, size - position);
+            }
             size--;
         }
     }
@@ -101,6 +75,7 @@ public class MyList implements MyArrayListImpl {
     //reset size counter to zero, and relink array to new with initial size
     @Override
     public void clear() {
+
         array = new String[INITIAL_SIZE];
         size = 0;
     }
@@ -137,14 +112,6 @@ public class MyList implements MyArrayListImpl {
         }
     }
 
-    public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.print(array[i] + ", ");
-        }
-    }
-
-    // As I understood my list inherits from Object, and its have method toString
-    //which return some kind of the link. So  I override this and now sout(list) works.
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

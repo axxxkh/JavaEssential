@@ -15,8 +15,6 @@ public class MyList implements MyArrayListImpl {
         }
     }
 
-    //може я сильно багато логіки обєднав в одному, але тут суть така
-    //метод ресайз приймає позицію від методу add(String, int),
     private void resize() {
         if (size == array.length) {
             String[] tempArray = new String[(array.length) * 2];
